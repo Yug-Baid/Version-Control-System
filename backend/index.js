@@ -10,6 +10,8 @@ yargs(hideBin(process.argv))
         describe:"File to add to staging ares",
         type:"string"
     })
-  },addRepo)
+  },(argv)=>{
+    addRepo(argv.file)
+  })
   .demandCommand(1, "You need atleast one command")
   .help().argv;
