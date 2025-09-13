@@ -2,6 +2,7 @@ const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 const { initRepo } = require("./controllers/init.js");
 const {addRepo} = require("./controllers/add.js")
+const {commitRepo} = require("./controllers/commit.js")
 
 yargs(hideBin(process.argv))
   .command("init", "Used for Intializing Repo", {}, initRepo)
@@ -12,6 +13,13 @@ yargs(hideBin(process.argv))
     })
   },(argv)=>{
     addRepo(argv.file)
+  }) .command("commit <message>","Commit the staged files",(yargs)=>{
+    yargs.positional("message",{
+        describe:"Commiting files from staging area",
+        type:"string"
+    })
+  },(argv)=>{
+    commitRepo(argv.message)
   })
   .demandCommand(1, "You need atleast one command")
   .help().argv;
