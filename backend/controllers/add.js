@@ -8,9 +8,7 @@ const addRepo = async (filePath) => {
     try {
         await fs.mkdir(stagingPath,{recursive:true})
         const fileName = path.basename(filePath)
-        await fs.copyFile(fileName,path.join(stagingPath,fileName))
-        console.log("Done")
-
+        await fs.copyFile(filePath,path.join(stagingPath,fileName))
         
     } catch (error) {
         console.error()
