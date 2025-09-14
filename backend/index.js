@@ -3,6 +3,8 @@ const { hideBin } = require("yargs/helpers");
 const { initRepo } = require("./controllers/init.js");
 const {addRepo} = require("./controllers/add.js")
 const {commitRepo} = require("./controllers/commit.js")
+const {pushRepo} = require("./controllers/push.js")
+const {pullRepo} = require("./controllers/pull.js")
 
 yargs(hideBin(process.argv))
   .command("init", "Used for Intializing Repo", {}, initRepo)
@@ -21,5 +23,7 @@ yargs(hideBin(process.argv))
   },(argv)=>{
     commitRepo(argv.message)
   })
+  .command("push", "Used for pushing the commits to AWS", {}, pushRepo)
+   .command("pull", "Used for pulling all commits from AWS", {}, pullRepo)
   .demandCommand(1, "You need atleast one command")
   .help().argv;
