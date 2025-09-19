@@ -14,6 +14,7 @@ const { pullRepo } = require("./controllers/pull.js");
 const { revertRepo } = require("./controllers/revert.js");
 const bodyParser = require("body-parser");
 const { Socket } = require("dgram");
+const mainRouter = require("./routes/main.router.js");
 
 dotenv.config();
 
@@ -71,6 +72,7 @@ function startServer() {
 
   app.use(express.json());
   app.use(bodyParser.json());
+  app.use('/',mainRouter)
   const mongo_url = process.env.MONGO_URL;
   app.use(cors({origin:"*"}))
 
@@ -110,8 +112,6 @@ function startServer() {
       console.log(`Server is listening to port ${port}`)
     })
 
-    app.get("/",(req,res)=>{
-      res.send("WELCOME")
-    })
+
 
 }
