@@ -110,6 +110,7 @@ function startServer() {
 
     httpSever.listen(port,()=>{
       console.log(`Server is listening to port ${port}`)
+      console.log('Day 10 No Changes')
     })
 
 
