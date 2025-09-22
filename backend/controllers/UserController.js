@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const {MongoClient} = require('mongodb')
+const {MongoClient, ObjectId, ReturnDocument} = require('mongodb')
 const dotenv = require('dotenv')
 
 dotenv.config()
@@ -78,20 +78,93 @@ const login = async (req,res)=>{
     }
 }
 
-const getAllUsers = (req,res)=>{
-    res.send('All Users Fetched')
+const getAllUsers = async (req,res)=>{
+    try {
+        await connectClient();
+        const db = client.db("versionControl")
+        const userCollection = db.collection('users')
+
+        const users = await userCollection.find({}).toArray()
+        res.send(users)
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message:"Server Error"})
+    }
 }
 
-const getUserProfile = (req,res)=>{
-    res.send('Enterd Repo')
+const getUserProfile = async (req,res)=>{
+    const currentId = req.params.id
+    try {
+        await connectClient();
+        const db = client.db("versionControl")
+        const userCollection = db.collection('users')
+
+        const user = await userCollection.findOne({
+            _id:new ObjectId(currentId)
+        })
+
+        res.send(user)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message:"Server Error"})
+    }
 }
 
-const updateUserProfile = (req,res)=>{
-    res.send('Update Success')
+const updateUserProfile =async (req,res)=>{
+     const currentId = req.params.id
+     const {email,password} = req.body
+
+     try {
+        await connectClient();
+        const db = client.db("versionControl")
+        const userCollection = db.collection('users')
+        let updateField = {email}
+        if(password){
+            const salt = await bcrypt.genSalt(10)
+            const newHashedPass = await bcrypt.hash(password,salt)
+            updateField.password = newHashedPass;
+        }
+
+        const result = await userCollection.findOneAndUpdate({
+            _id:new ObjectId(currentId),
+        },
+        {$set:updateField},
+        {returnDocument:"after"}
+    
+    )
+    
+    res.send(result.value)
+
+
+     } catch (error) {
+        console.error(error)
+        res.status(500).json({message:"Server Error"})
+     }
 }
 
-const deleteUserProfile = (req,res)=>{
-    res.send('Deleted the profile')
+const deleteUserProfile =async (req,res)=>{
+    const currentId = req.params.id
+    
+    try {
+        await connectClient();
+        const db = client.db("versionControl")
+        const userCollection = db.collection('users')
+
+        const result = await userCollection.deleteOne({
+            _id:new ObjectId(currentId)
+        })
+
+        if(result.deleteCount == 0){
+            return res.status(404).json({message:"User not Found"})
+        }
+
+        res.json({message:"User Deleted"})
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message:"Server Error"})
+    }
 }
 
 module.exports = {
