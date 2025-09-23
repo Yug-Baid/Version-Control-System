@@ -22,4 +22,4 @@ const issueSchema = new Schema({
 })
 
 const Issues = mongoose.model("Issue",issueSchema)
-export default Issues
+module.exports = Issues
