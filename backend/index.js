@@ -70,11 +70,12 @@ function startServer() {
   const app = express();
   const port = process.env.PORT || 3000;
 
+  app.use(cors({origin:"*"}))
   app.use(express.json());
   app.use(bodyParser.json());
   app.use('/',mainRouter)
   const mongo_url = process.env.MONGO_URL;
-  app.use(cors({origin:"*"}))
+ 
 
   mongoose
     .connect(mongo_url)
@@ -110,7 +111,7 @@ function startServer() {
 
     httpSever.listen(port,()=>{
       console.log(`Server is listening to port ${port}`)
-      console.log('Day 10 No Changes')
+
     })
 
 

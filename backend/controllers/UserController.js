@@ -43,7 +43,7 @@ const signup = async (req,res)=>{
 
         const result = await userCollection.insertOne(newUser)
         const token  = jwt.sign({id:result.insertId},process.env.JWT_SECRET_KEY,{expiresIn:"1h"})
-        res.json({token})
+        res.json({token,userId:result.insertId})
     } catch (error) {
         console.error(error)
         res.status(500).json({message:"Server Error"})

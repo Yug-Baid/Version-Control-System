@@ -1,6 +1,8 @@
 import { useState } from "react"
 import "./Signup.css"
 import { useAuth } from "../../AuthContext" 
+import axios from "axios"
+
 
 const Signup = () => {
 
@@ -8,6 +10,7 @@ const Signup = () => {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [loading,setLoading] = useState(false)
+  const {setCurrentUser} = useAuth()
 
   const handleSignUp = async (e)=>{
       e.preventDefault()
@@ -30,7 +33,7 @@ const Signup = () => {
 
       } catch (error) {
         console.log(error)
-        alert("Some error Occured")
+        alert("Signup Failed")
         setLoading(false)
       }
 
