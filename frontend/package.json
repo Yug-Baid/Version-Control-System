@@ -12,10 +12,11 @@
   "dependencies": {
     "@primer/primitives": "^11.2.1",
     "@primer/react": "^37.31.0",
+    "axios": "^1.12.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.4",
-    "styled-components": "^6.1.19"
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
