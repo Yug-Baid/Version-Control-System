@@ -1,7 +1,11 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { FaBars, FaGithub, FaSearch, FaBell, FaPlus, FaChartBar, FaUsers } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({username}) => {
+  if(!username){
+    return <div>Loading...</div>
+  }
   return (
     <nav className="navbar">
       {/* Left Section */}
@@ -9,8 +13,13 @@ const Navbar = () => {
         <button className="menu-btn">
           <FaBars />
         </button>
-        <FaGithub className="github-logo" />
+        <Link to={"/"}>
+        <FaGithub className="github-logo" />   
+        </Link>
+        <Link to={"/"} style={{textDecoration:"none"}}>
+
         <span className="nav-title">Dashboard</span>
+                </Link>
       </div>
 
       {/* Center Search */}
@@ -24,12 +33,17 @@ const Navbar = () => {
       {/* Right Section */}
       <div className="nav-right">
         <button className="icon-btn"><FaUsers /></button>
+        <Link to={"/create"}>
         <button className="icon-btn"><FaPlus /></button>
+        </Link>
         <button className="icon-btn"><FaBell /></button>
         <button className="icon-btn"><FaChartBar /></button>
+      <Link to={"/profile"} style={{textDecoration:"none"}}>
+    
         <div className="profile">
-          <span className="profile-initial">H</span>
+          <span className="profile-initial">{username.slice(0,1).toUpperCase()}</span>
         </div>
+          </Link>
       </div>
     </nav>
   );

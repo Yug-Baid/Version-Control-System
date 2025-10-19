@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import Navbar from "../Navbar";
+import Profile from "../User/Profile";
 
 const Dashboard = () => {
   const [repo, setRepo] = useState([]);
@@ -62,9 +63,12 @@ const Dashboard = () => {
     }
   }, [searchQuery, repo]);
 
+  if(!repo[0]){
+    return <div>Loading...</div>
+  }
   return (
     <>
-    <Navbar/>
+    <Navbar username={repo[0].name}/>
     <div className="dashboard">
       {/* Sidebar - Top Repositories */}
       <aside className="sidebar">

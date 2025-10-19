@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
-const User = require('./models/userModel.js'); //
-const Repo = require('./models/repoModel.js'); //
+const User = require('./models/userModel.js');
+const Repo = require('./models/repoModel.js');
 
 // Load environment variables
 dotenv.config();
@@ -28,6 +28,11 @@ const sampleRepoData = [
   { name: 'css-art', description: 'Creating art with pure CSS.' },
   { name: 'api-gateway', description: 'A simple API gateway service.' },
   { name: 'mobile-app', description: 'A cross-platform mobile application.' },
+];
+
+// List of possible languages to assign randomly
+const languages = [
+    'JavaScript', 'HTML', 'CSS', 'Python', 'Java', 'TypeScript', 'Shell', 'C++', 'C', 'Ruby'
 ];
 
 // A helper function to pick random items
@@ -70,7 +75,7 @@ const seedDatabase = async () => {
         repositories: [],
         followedUser: [],
         StarRepos: [],
-      }); //
+      });
 
       const savedUser = await newUser.save();
       const createdRepoIds = [];
@@ -82,17 +87,19 @@ const seedDatabase = async () => {
       for (let i = 0; i < repoCount; i++) {
         const repoDetails = getRandomItem(sampleRepoData);
         const repoName = `${savedUser.name}-${repoDetails.name}-${i}`;
+        const randomLanguage = getRandomItem(languages); // Pick a random language
         
         const newRepo = new Repo({
           name: repoName,
           description: repoDetails.description,
           visibility: Math.random() > 0.3, // Most repos are public
           owner: savedUser._id, // Link repo to the user
+          language: randomLanguage, // Add the random language here
           issues: [],
-        }); //
+        });
 
         const savedRepo = await newRepo.save();
-        console.log(`  > Created repo: ${savedRepo.name}`);
+        console.log(`  > Created repo: ${savedRepo.name} (Language: ${savedRepo.language})`);
         createdRepoIds.push(savedRepo._id);
       }
 

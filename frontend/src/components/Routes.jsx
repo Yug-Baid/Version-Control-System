@@ -5,6 +5,7 @@ import Dashboard from './Dashboard/Dashboard'
 import Login from './Auth/Login'
 import Signup from './Auth/Signup'
 import Profile from './User/Profile'
+import CreateRepo from './Repo/CreateRepo'
 
 const ProjectRoutes = () => {
     const {currentUser,setCurrentUser} = useAuth()
@@ -43,6 +44,10 @@ const ProjectRoutes = () => {
          {
             path:"/profile",
             element:<Profile/>
+        },
+         {
+            path:"/create",
+            element:<CreateRepo/>
         },
     ])
 
