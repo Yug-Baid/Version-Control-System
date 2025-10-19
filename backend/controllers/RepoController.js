@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var ObjectId = require('mongodb').ObjectId; 
 const Repo = require('../models/repoModel.js')
 const User = require('../models/userModel.js')
 const Issue = require('../models/issueModel.js')
@@ -69,11 +70,12 @@ const fetchRepoByName = async (req,res)=>{
 }
 
 const fetchRepoForCurrentUser = async (req,res)=>{
-    const userId = req.user
+
+    const userId = req.params.userId
+   
 
     try {
-        const repos = await Repo.findById(id)
-
+        const repos = await Repo.find({owner:userId})
         if(!repos || repos.length == 0){
             return res.status(404).json({message:"Repo Not Found"})
         }

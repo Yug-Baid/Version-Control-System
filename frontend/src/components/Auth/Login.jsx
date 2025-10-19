@@ -10,11 +10,11 @@ const Login = () => {
       const [loading,setLoading] = useState(false)
       const {setCurrentUser} = useAuth()
 
-      useEffect(()=>{
-        localStorage.removeItem("token")
-        localStorage.removeItem("userId")
-        setCurrentUser(null)
-      },[setCurrentUser,loading])
+      // useEffect(()=>{
+      //   localStorage.removeItem("token")
+      //   localStorage.removeItem("userId")
+      //   setCurrentUser(null)
+      // },[setCurrentUser,loading])
     
       const handleLogin = async (e)=>{
           e.preventDefault()
