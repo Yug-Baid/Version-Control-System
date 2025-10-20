@@ -107,7 +107,7 @@
 }
 
 .profile-content {
-  flex-grow: 0.6;
+  flex-grow: 0.3;
 }
 .repos-header {
     display: flex;

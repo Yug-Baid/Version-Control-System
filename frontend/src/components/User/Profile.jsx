@@ -3,6 +3,7 @@ import './Profile.css';
 import Navbar from '../Navbar';
 import { useAuth } from '../../AuthContext';
 import axios from 'axios';
+import HeatMapProfile from './HeatMap';
 
 // --- Fake Data for Repositories ---
 const fakeRepos = [
@@ -179,9 +180,15 @@ const Profile = () => {
               </div>
             ))}
           </div>
+          <div style={{display:"flex", justifyContent:"center",marginTop:"50px",border:"1px solid #656c76",borderRadius:"10px"}}>
+      <HeatMapProfile/>
+      </div>
+  
         </div>
       </div>
+      
     </div>
+  
     </>
   );
 };
