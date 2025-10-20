@@ -108,4 +108,38 @@
   justify-content: center;
   font-weight: bold;
   font-size: 0.9rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.icon-btn-profile {
+  background: none;
+  border-radius: 6px;
+  padding: 5px 7px;
+  margin: 2px -5px 5px 0;
+  color: #c9d1d9;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s,;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  
+}
+
+.icon-btn-profile:hover {
+  background: #21262d;
+}
+
+.dropDown{
+   opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.15s ease, transform 0.2s ease;
+}
+
+.open{
+   opacity: 1;
+   display: flex;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.15s ease-in-out, transform 0.2s ease-in-out;
 }
