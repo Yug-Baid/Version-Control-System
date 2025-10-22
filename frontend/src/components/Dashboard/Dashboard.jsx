@@ -64,7 +64,7 @@ const Dashboard = () => {
   }, [searchQuery, repo]);
 
   if(!repo[0]){
-    return <div>Loading...</div>
+    return <div></div>
   }
   return (
     <>

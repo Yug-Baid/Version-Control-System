@@ -26,7 +26,7 @@
   text-decoration: none;
   color: #c9d1d9;
   border-bottom: 2px solid transparent;
-  transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.1s ease-in-out;
 }
 .tab-item.active {
   border-bottom-color: #f78166;
@@ -100,7 +100,7 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.1s;
 }
 .edit-profile-btn:hover {
     background-color: #30363d;
@@ -142,7 +142,13 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: border 0.2s;
 }
+
+.repo-card:hover {
+  border-color: #58a6ff;
+}
+
 .repo-card-header {
     display: flex;
     justify-content: space-between;

@@ -5,46 +5,6 @@ import { useAuth } from '../../AuthContext';
 import axios from 'axios';
 import HeatMapProfile from './HeatMap';
 
-// --- Fake Data for Repositories ---
-const fakeRepos = [
-  {
-    name: 'Spotify_UI',
-    description: 'This is my first project on Frontend using HTML and CSS',
-    language: 'HTML',
-    languageColor: '#e34c26',
-  },
-  {
-    name: 'Small-CSS-Project',
-    description: 'This a Small CSS project which i made to practice CSS and HTML.',
-    language: 'HTML',
-    languageColor: '#e34c26',
-  },
-  {
-    name: 'Wander-Lust',
-    description: 'This is My first Major-project on FULL STACK DEVELOPMENT',
-    language: 'JavaScript',
-    languageColor: '#f1e05a',
-  },
-  {
-    name: 'Version-Control-System',
-    description: '',
-    language: 'JavaScript',
-    languageColor: '#f1e05a',
-  },
-  {
-    name: 'UI_Projects',
-    description: 'These are all the UI Projects i have made so far learning CSS and HTML.',
-    language: 'HTML',
-    languageColor: '#e34c26',
-  },
-  {
-    name: 'DivFlow',
-    description: 'A freelance Website for collaboration',
-    language: 'JavaScript',
-    languageColor: '#f1e05a',
-  },
-];
-
 // --- SVG Icons for Tabs ---
 const BookIcon = () => (
   <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" className="octicon">
@@ -74,7 +34,6 @@ const StarIcon = () => (
   </svg>
 );
 
-// --- Main Profile Component ---
 const Profile = () => {
 
   const { currentUser } = useAuth();
@@ -97,15 +56,15 @@ const Profile = () => {
       };
   
       fetchUserRepo();
-    }, [repo]);
+    },[loading,repo,setRepo,setLoading]);
 
     useEffect(() => {
-    // Only try to fetch if the currentUser ID exists
+    
     if (currentUser) {
-      // Make the API call to your backend endpoint
+      
       axios.get(`http://localhost:3000/getUser/${currentUser}`)
         .then(res => {
-          // Store the complete user object in state
+         
           console.log(res.data)
           setUserData(res.data); 
           setLoading(false);
@@ -117,12 +76,12 @@ const Profile = () => {
     } else {
       setLoading(false);
     }
-  }, []);
+  },[loading,setLoading,userData,setUserData]);
 
 
 
   if (loading) {
-    return <div>Loading user data...</div>;
+    return <div></div>;
   }
   return (
     <>
@@ -153,7 +112,7 @@ const Profile = () => {
       </div>
       <div className="profile-main">
         <div className="profile-sidebar">
-          <div className="avatar">{userData.name.slice(0,1).toUpperCase()}</div>
+          <div className="avatar">{userData.name ? userData.name.slice(0,1).toUpperCase() : "U"}</div>
           <div className="user-name">{userData.name}</div>
           <button className="edit-profile-btn">Edit profile</button>
         </div>
