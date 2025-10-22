@@ -56,7 +56,7 @@ const Signup = () => {
         </div>
         <div className="form-indv">
           <label  style={{alignSelf:"start"}} htmlFor="password">Password</label>
-          <input style={{background:"transparent",borderRadius:"5px"}} autoComplete="off" type="text" id="password" name="password"  value={password} onChange={(e)=>setPassword(e.target.value)} />
+          <input style={{background:"transparent",borderRadius:"5px"}} autoComplete="off" type="password" id="password" name="password"  value={password} onChange={(e)=>setPassword(e.target.value)} />
         </div>
         <button className="button" onClick={handleSignUp} disabled={loading} >{loading ? "Loading..." : "SignUp"}</button>
       </div>
