@@ -1,59 +1,83 @@
-import React, { useEffect } from 'react'
-import { useAuth } from '../AuthContext'
-import {useNavigate,useRoutes} from 'react-router-dom'
-import Dashboard from './Dashboard/Dashboard'
-import Login from './Auth/Login'
-import Signup from './Auth/Signup'
-import Profile from './User/Profile'
-import CreateRepo from './Repo/CreateRepo'
-
+import React, { useEffect } from 'react'; // Keep React import if needed elsewhere, often implicit now
+import { useAuth } from '../AuthContext';
+import { useNavigate, useRoutes } from 'react-router-dom';
+import Dashboard from './Dashboard/Dashboard';
+import Login from './Auth/Login';
+import Signup from './Auth/Signup';
+import Profile from './User/Profile';
+import CreateRepo from './Repo/CreateRepo';
+import RepoView from './Repo/RepoView'; // <-- Import the new component
+import FileView from './FileView';
 
 const ProjectRoutes = () => {
-    const {currentUser,setCurrentUser} = useAuth()
-    const navigate = useNavigate()
+    const { currentUser, setCurrentUser } = useAuth();
+    const navigate = useNavigate();
 
-    useEffect(()=>{
-        const userIdFromSystem = localStorage.getItem('userId')
+    useEffect(() => {
+        const userIdFromSystem = localStorage.getItem('userId');
 
-        if(!userIdFromSystem && !currentUser){
-            setCurrentUser(userIdFromSystem)
+        // Logic for setting user and redirecting remains the same
+        if (!userIdFromSystem && !currentUser) {
+            // If already on auth/signup, don't redirect
+            if (!["/auth", "/signup"].includes(window.location.pathname)) {
+                 console.log("No user ID found, redirecting to /auth");
+                 navigate("/auth");
+            }
+        } else if (userIdFromSystem && !currentUser) {
+             setCurrentUser(userIdFromSystem); // Set context if only localStorage has it
         }
 
-        if(!userIdFromSystem && !["/auth","/signup"].includes(window.location.pathname)){
-            navigate("/auth")
+
+        // Redirect from /auth or /signup if user is already logged in
+        if (userIdFromSystem && ["/auth", "/signup"].includes(window.location.pathname)) {
+             console.log("User ID found, redirecting from auth/signup to /");
+             navigate('/');
         }
 
-        if(userIdFromSystem && window.location.pathname == "/auth"){
-            navigate('/')
-        }
+        // Added console logs for debugging redirects
+        console.log("Current User (Context):", currentUser);
+        console.log("User ID (Storage):", userIdFromSystem);
+        console.log("Current Pathname:", window.location.pathname);
 
-    },[currentUser,navigate,setCurrentUser])
+
+    }, [currentUser, navigate, setCurrentUser]); // Dependencies seem correct
 
     const element = useRoutes([
         {
-            path:"/",
-            element:<Dashboard/>
+            path: "/",
+            element: <Dashboard />
         },
-         {
-            path:"/auth",
-            element:<Login/>
+        {
+            path: "/auth",
+            element: <Login />
         },
-         {
-            path:"/signup",
-            element:<Signup/>
+        {
+            path: "/signup",
+            element: <Signup />
         },
-         {
-            path:"/profile",
-            element:<Profile/>
+        {
+            // Update Profile route if you want it user-specific
+            // path: "/profile/:userId", // Example: if profile should show specific user
+             path: "/profile", // Keeping it simple for now
+            element: <Profile />
         },
-         {
-            path:"/create",
-            element:<CreateRepo/>
+        {
+            path: "/create",
+            element: <CreateRepo />
         },
-       
-    ])
+        // --- New Route Definition ---
+        {
+            path: "/repo/:userId/:repoName", // Matches the structure used in RepoView and Links
+            element: <RepoView />
+        },
+        {
+            path: "/repo/:userId/:repoName/blob/:fileName", // Using 'blob' convention like GitHub
+            element: <FileView />
+        }
+        // --------------------------
+    ]);
 
-    return element
-}
+    return element;
+};
 
-export default ProjectRoutes
+export default ProjectRoutes;
