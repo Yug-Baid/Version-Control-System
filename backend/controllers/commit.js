@@ -2,39 +2,48 @@ const fs = require("fs").promises;
 const path = require("path");
 
 
-async function getUuid() {
-  const { v4: uuidv4 } = await import("uuid");
-  return uuidv4;
-}
-
-
-const commitRepo = async (message) => {
-  const uuidv4 = await getUuid();
-  const repoPath = path.resolve(process.cwd(), ".Git");
-  const stagingPath = path.join(repoPath, "Staged_Files");
-  const commitPath = path.join(repoPath, "commits");
+const commitRepo = async (userId, repoName, message) => {
+  
+  const repoBasePath = path.resolve(process.cwd(), ".Git", userId, repoName);
+  const stagingPath = path.join(repoBasePath, "staged_files");
+  const commitPath = path.join(repoBasePath, "commit_files"); 
 
   try {
-    const commmitId = uuidv4();
-    const commitDir = path.join(commitPath, commmitId);
-    await fs.mkdir(commitDir, { recursive: true });
+    
+    await fs.mkdir(commitPath, { recursive: true });
 
-    const files = await fs.readdir(stagingPath);
-    for (const file of files) {
-      await fs.copyFile(
-        path.join(stagingPath, file),
-        path.join(commitDir, file)
-      );
+    const filesInStaging = await fs.readdir(stagingPath);
+    console.log(filesInStaging)
+
+    if (filesInStaging.length === 0) {
+      console.log(`No changes staged for commit in ${userId}/${repoName}.`);
+      return; 
     }
 
+    console.log(`Committing ${filesInStaging.length} files for ${userId}/${repoName}...`);
+
+    for (const file of filesInStaging) {
+      const sourceFilePath = path.join(stagingPath, file);
+      const destFilePath = path.join(commitPath, file);
+      await fs.copyFile(sourceFilePath, destFilePath);
+      await fs.unlink(sourceFilePath);
+    }
+
+   
+    const commitInfo = {
+      message: message,
+      date: new Date().toISOString(),
+    };
     await fs.writeFile(
-      path.join(commitDir, "commit.json"),
-      JSON.stringify({ message, date: new Date().toISOString() })
+      path.join(commitPath, "commit_info.json"), 
+      JSON.stringify(commitInfo, null, 2) 
     );
-    console.log(`Commit with ${commmitId} id created with message ${message}`);
+
+    console.log(`Commit successful for ${userId}/${repoName} with message: "${message}"`);
+
   } catch (error) {
-    console.log(error);
+    console.error(`Error during commit for ${userId}/${repoName}:`, error);
   }
 };
 
-module.exports = { commitRepo }
+module.exports = { commitRepo };
