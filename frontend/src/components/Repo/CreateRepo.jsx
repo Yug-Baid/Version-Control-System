@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../AuthContext';
+import axios from 'axios';
 
 // --- Self-Contained Styles ---
 const Style = () => (
@@ -269,6 +272,21 @@ const CreateRepo = () => {
     const [repoName, setRepoName] = useState('');
     const [description, setDescription] = useState('');
     const [isPublic, setIsPublic] = useState(true);
+    const {userName} = useAuth()
+
+  
+      
+        const repoCreator = async ()=>{
+            const owner = localStorage.getItem('userId')
+            const response = await axios.post("http://localhost:3000/repo/create",{
+                name:repoName,
+                owner:owner,
+                description:description,
+                visibility:isPublic
+            })
+            window.location.href = `/repo/${owner}/${repoName}`
+        }
+   
 
     return (
         <div className="create-repo-container">
@@ -287,8 +305,8 @@ const CreateRepo = () => {
                         <div className="input-group">
                             <label htmlFor="owner">Owner *</label>
                             <button id="owner" className="owner-dropdown">
-                                <span className="owner-avatar">Y</span>
-                                <span className="owner-name">Yug-Baid</span>
+                                <span className="owner-avatar">{userName.slice(0,1)}</span>
+                                <span className="owner-name">{userName}</span>
                                 <CaretDownIcon />
                             </button>
                         </div>
@@ -369,7 +387,7 @@ const CreateRepo = () => {
             </div>
 
             <div className="create-repo-footer">
-                <button className="create-repo-btn">Create repository</button>
+                <button onClick={()=>repoCreator()} className="create-repo-btn">Create repository</button>
             </div>
         </div>
     );
