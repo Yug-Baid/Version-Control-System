@@ -203,7 +203,11 @@ const fetchRepoContent = async (req, res) => {
         const files = listedObjects.Contents
             .map(item => item.Key.substring(prefix.length))
             .filter(name => name && name !== 'commit_info.json');
-
+        
+          const dbRepo = await Repo.findOne({ name: repoName, owner: userId });
+          dbRepo.content = files
+          const updatedRepo = await dbRepo.save()
+          
         console.log(`Found files for ${userId}/${repoName}:`, files);
         res.json({ message: "Files listed successfully", files: files });
 

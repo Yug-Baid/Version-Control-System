@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -12,6 +13,7 @@ export const useAuth = ()=>{
 
 export const Authprovider = ({children})=>{
     const [currentUser,setCurrentUser] = useState(null)
+    const [userName,setUserName] = useState('')
 
     useEffect(()=>{
         const userId = localStorage.getItem('userId')
@@ -20,8 +22,18 @@ export const Authprovider = ({children})=>{
         }
     },[])
 
+    useEffect(()=>{
+         const userId = localStorage.getItem("userId");
+        const fetchUserdata = async()=>{
+            const userRes = await axios.get(`http://localhost:3000/getUser/${userId}`);
+            setUserName(userRes.data.name || 'User');
+        }
+        fetchUserdata()
+       
+    },[])
+
     const value = {
-        currentUser,setCurrentUser
+        currentUser,setCurrentUser,userName,setUserName
     }
 
     return <authContext.Provider value={value}>{children}</authContext.Provider>

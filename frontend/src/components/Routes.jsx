@@ -8,6 +8,7 @@ import Profile from './User/Profile';
 import CreateRepo from './Repo/CreateRepo';
 import RepoView from './Repo/RepoView'; // <-- Import the new component
 import FileView from './FileView';
+import RepoSettings from './Repo/RepoSettings';
 
 const ProjectRoutes = () => {
     const { currentUser, setCurrentUser } = useAuth();
@@ -73,8 +74,11 @@ const ProjectRoutes = () => {
         {
             path: "/repo/:userId/:repoName/blob/:fileName", // Using 'blob' convention like GitHub
             element: <FileView />
+        },
+        {
+            path:"/repo/:userId/:repoName/settings",
+            element:<RepoSettings />
         }
-        // --------------------------
     ]);
 
     return element;
