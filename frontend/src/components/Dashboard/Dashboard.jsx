@@ -85,21 +85,21 @@ const Dashboard = () => {
        return (
            <>
                <Navbar username="Loading..." />
-               <div className="dashboard" style={{ justifyContent: 'center', alignItems: 'center', color: 'white'}}>Loading Dashboard...</div>
+               <div className="dashboard" style={{display:"flex", justifyContent: 'center', alignItems: 'center', color: 'white'}}>Loading Dashboard...</div>
            </>
        );
    }
 
   return (
     <>
-      <Navbar username={userName}/>
+      <Navbar username={userName} allRepo={allRepos}/>
       <div className="dashboard">
         {/* Sidebar - Now maybe shows all repos or recently viewed */}
         <aside className="sidebar">
           <h3 className="sidebar-title">Repositories</h3>
           <input
             type="text"
-            placeholder="Find a repository..."
+            placeholder="Find any repository..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-input"

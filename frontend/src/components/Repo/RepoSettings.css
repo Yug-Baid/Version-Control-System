@@ -1,0 +1,219 @@
+.settings-container {
+    padding: 0; /* Remove padding for full width */
+    max-width: 100%; /* Use full width */
+    margin: 60px auto 0 auto;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    background-color: #0d1117;
+    min-height: calc(100vh - 70px);
+    position: absolute;
+    right: 0;
+    left: 0;
+  }
+
+  /* Header Section (Re-used from RepoView for consistency) */
+   .repo-header-section {
+     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+     margin-bottom: 0; /* Remove bottom margin */
+     padding: 16px 24px; /* Add padding */
+     border-bottom: 1px solid #30363d;
+     background-color: #161b22; /* Header background */
+   }
+   .repo-header-left { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+   .repo-header-left h1 { font-size: 20px; font-weight: 400; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+   .repo-header-left h1 a { color: #58a6ff; text-decoration: none; }
+   .repo-header-left h1 a:hover { text-decoration: underline; }
+   .repo-header-left h1 span { font-weight: 600; color: #c9d1d9; }
+   .privacy-badge { font-size: 12px; font-weight: 500; color: #8b949e; border: 1px solid #30363d; border-radius: 2em; padding: 1px 7px; margin-left: 8px; white-space: nowrap; vertical-align: middle; }
+   /* No actions needed in settings header usually */
+
+  /* Tab Navigation (Re-used from RepoView) */
+  .repo-top-nav {
+    display: flex; gap: 24px; padding: 0 24px; /* Add padding */
+    border-bottom: 1px solid #30363d; overflow-x: auto; scrollbar-width: none; background-color: #161b22; /* Header background */
+   }
+  .repo-top-nav::-webkit-scrollbar { display: none; }
+  .repo-top-nav-item { padding: 8px 4px 10px 4px; font-size: 14px; font-weight: 500; color: #8b949e; text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.15s ease-in-out; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .repo-top-nav-item:hover { color: #c9d1d9; }
+  .repo-top-nav-item.active { color: #c9d1d9; border-color: #f78166; font-weight: 600; }
+  .repo-top-nav-item svg { color: #8b949e; font-size: 16px; }
+  .repo-top-nav-item.active svg { color: #c9d1d9; }
+  .repo-top-nav-item span { background-color: #30363d; color: #c9d1d9; padding: 0px 6px; border-radius: 2em; font-size: 12px; min-width: 18px; text-align: center; line-height: 18px; font-weight: 400; }
+
+  /* Settings Layout */
+  .settings-layout {
+    display: flex;
+    padding: 24px; /* Padding for the content area */
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  /* Left Sidebar Navigation */
+  .settings-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+  }
+  .settings-sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .settings-sidebar-nav li {
+    margin-bottom: 4px;
+  }
+  .settings-sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    color: #c9d1d9;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .settings-sidebar-nav a:hover {
+    background-color: #21262d;
+  }
+  .settings-sidebar-nav a.active {
+    background-color: #30363d; /* Use a slightly different active bg */
+    font-weight: 600;
+  }
+  .settings-sidebar-nav svg {
+    color: #8b949e;
+    font-size: 16px;
+  }
+   .settings-sidebar-nav a.active svg {
+     color: #c9d1d9;
+   }
+
+  /* Right Content Area */
+  .settings-content {
+    flex-grow: 1;
+    min-width: 0; /* Prevent overflow issues */
+  }
+  .settings-section {
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    background-color: #161b22; /* Match header/tab background */
+  }
+  .settings-section-header {
+    padding: 16px;
+    border-bottom: 1px solid #30363d;
+  }
+  .settings-section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .settings-section-body {
+    padding: 24px;
+  }
+  .settings-section-body label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .settings-input {
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 5px 12px;
+    color: #c9d1d9;
+    font-size: 14px;
+    width: 100%;
+    max-width: 440px; /* Limit input width */
+    box-sizing: border-box;
+    height: 32px;
+    margin-right: 8px;
+  }
+  .settings-input:focus {
+    outline: none;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+  }
+  .settings-button {
+    background-color: #21262d;
+    border: 1px solid rgba(240, 246, 252, 0.1);
+    border-radius: 6px;
+    color: #c9d1d9;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    height: 32px; /* Match input height */
+    vertical-align: middle; /* Align with input */
+  }
+  .settings-button:hover {
+    background-color: #30363d;
+    border-color: #8b949e;
+  }
+  .settings-button:disabled {
+     opacity: 0.6;
+     cursor: not-allowed;
+  }
+  .settings-section-body p {
+     color: #8b949e;
+     font-size: 12px;
+     margin-top: 8px;
+     margin-bottom: 16px;
+  }
+
+  /* Danger Zone */
+  .danger-zone {
+    border-color: #da3633; /* Red border */
+  }
+  .danger-zone .settings-section-header h2 {
+    color: #da3633; /* Red header text */
+  }
+  .danger-zone-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #30363d;
+  }
+   .danger-zone-item:last-child {
+      border-bottom: none;
+   }
+   .danger-zone-item div {
+      flex-grow: 1;
+      margin-right: 16px;
+   }
+   .danger-zone-item h4 {
+      margin: 0 0 4px 0;
+      font-weight: 600;
+      font-size: 14px;
+      color: #c9d1d9;
+   }
+   .danger-zone-item p {
+      margin: 0;
+      color: #8b949e;
+      font-size: 12px;
+   }
+   .danger-zone-button {
+      background-color: transparent;
+      border: 1px solid #a41e1b; /* Darker red border */
+      color: #da3633; /* Red text */
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.1s ease-in-out;
+   }
+   .danger-zone-button:hover {
+       background-color: #da3633; /* Red background on hover */
+       color: white;
+       border-color: #da3633;
+   }
+   .danger-zone-button:disabled {
+       opacity: 0.6;
+       cursor: not-allowed;
+       background-color: transparent !important; /* Keep transparent */
+       color: #da3633 !important; /* Keep red */
+       border-color: #a41e1b !important; /* Keep border */
+   }
