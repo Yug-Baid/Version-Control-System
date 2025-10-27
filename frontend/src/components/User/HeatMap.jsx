@@ -29,7 +29,7 @@ const getPanelColors = (maxCount)=>{
 
 }
 
-const HeatMapProfile = ()=>{
+const HeatMapProfile = ({minWidthValue})=>{
     const [activityData,setActivityData] = useState([])
     const [panelColors,setPanelColors] = useState({})
 
@@ -54,7 +54,7 @@ const HeatMapProfile = ()=>{
             <h4>Recent Contributions</h4>
             <HeatMap
             className='HeatMapProfile'
-            style={{minWidth:"950px",height:"200px",color:"white"}}
+            style={{minWidth:`${minWidthValue}`,height:"200px",color:"white"}}
             value={activityData}
             weekLabels={["Sun","Mon","Tue","Wed","Thus","Fri","Sat"]}
             startDate={new Date("2001-01-01")}

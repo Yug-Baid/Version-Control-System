@@ -8,9 +8,10 @@
   import { useEffect, useInsertionEffect, useState } from "react";
 import { useAuth } from "../AuthContext";
 
-  const Navbar = ({username}) => {
-
-    const {setCurrentUser} = useAuth()
+  const Navbar = ({username,allRepos}) => {
+    
+    
+    const {currentUser,setCurrentUser} = useAuth()
     const [change,setChange] = useState(false) 
 
       const handleProfileClick = ()=>{
@@ -21,10 +22,7 @@ import { useAuth } from "../AuthContext";
     return (
       <nav className="navbar">
         {/* Left Section */}
-        <div className="nav-left">
-          <button className="menu-btn">
-            <FaBars />
-          </button>
+        <div className="nav-left" style={{marginLeft:"15px"}}>
           <Link to={"/"}>
           <FaGithub className="github-logo" />   
           </Link>
@@ -34,22 +32,18 @@ import { useAuth } from "../AuthContext";
                   </Link>
         </div>
 
-        {/* Center Search */}
-        <div className="nav-center">
-          <div className="search-box">
-            <FaSearch className="search-icon" />
-            <input type="text" placeholder="Type / to search" />
-          </div>
-        </div>
-
         {/* Right Section */}
-        <div className="nav-right">
+        <div className="nav-right" style={{marginRight:"15px"}}>
           <button className="icon-btn"><FaUsers /></button>
           <Link to={"/create"}>
           <button className="icon-btn"><FaPlus /></button>
           </Link>
+          <Link to={'/announcements'}>
           <button className="icon-btn"><FaBell /></button>
+          </Link>
+          <Link to={"/contributions"}>
           <button className="icon-btn"><FaChartBar /></button>
+          </Link>
       
 
        
@@ -57,10 +51,10 @@ import { useAuth } from "../AuthContext";
             <span className="profile-initial">{username ? username.slice(0,1).toUpperCase(): "U"}</span>
             <div className={`dropDown ${change ? 'open' : ''}`} style={{position:"absolute",color:"white",bottom:"-180px",zIndex:"99",right:"20px",background:"#010409",width:"150px",borderRadius:"10px",border:"1px solid #656c76",flexDirection:"column",justifyContent:"center",padding:"20px 20px 20px 4px",fontSize:"13px",fontWeight:"500"}}>
               <div style={{borderBottom:"1px solid #656c767a"}}>
-                <Link to={"/profile"}>
+                <Link style={{textDecoration:"none"}} to={"/profile"}>
               <p className="icon-btn-profile"><CiUser style={{fontSize:"16px"}}/>Profile</p></Link>
-              <p className="icon-btn-profile"><FaFreeCodeCamp  style={{fontSize:"18px"}} />Contributions</p>
-              <p style={{marginBottom:"10px"}} className="icon-btn-profile"><RiGitRepositoryLine  style={{fontSize:"16px"}} />Repositories</p>
+             <Link style={{textDecoration:"none"}} to={'/contributions'}> <p className="icon-btn-profile"><FaFreeCodeCamp  style={{fontSize:"18px"}} />Contributions</p></Link>
+             <Link to={`/profile/${currentUser}/repositories`} style={{ textDecoration: 'none' }}> <p style={{marginBottom:"10px"}} className="icon-btn-profile"><RiGitRepositoryLine  style={{fontSize:"16px"}} />Repositories</p></Link>
               </div>
               <div style={{marginTop:"5px"}}>
               <button onClick={()=>{
