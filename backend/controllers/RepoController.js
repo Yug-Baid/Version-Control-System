@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Repo = require('../models/repoModel.js');
+const User = require('../models/userModel.js');
 const Issue = require('../models/issueModel.js');
 const { S3, S3_BUCKET } = require('../config/aws-config.js');
 const mime = require('mime-types'); 
