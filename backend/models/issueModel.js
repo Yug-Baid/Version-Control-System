@@ -17,7 +17,8 @@ const issueSchema = new Schema({
     },
     repository:{
         type:Schema.Types.ObjectId,
-        ref:'Repository'
+        ref:'Repository',
+        required:true
     },
 })
 

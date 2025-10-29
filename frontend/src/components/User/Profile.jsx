@@ -103,7 +103,7 @@ const Profile = () => {
           </a>
           <a href="#" className="tab-item">
             <RepoIcon />
-            <span>Repositories</span>
+           <Link style={{textDecoration:'none', color:'#c9d1d9'}}  to={`/profile/${currentUser}/repositories`}> <span>Repositories</span></Link>
             {/* Dynamic repo count */}
             <span className="tab-count">{userRepos.length}</span>
           </a>
