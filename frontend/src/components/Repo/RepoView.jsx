@@ -364,28 +364,8 @@ const RepoView = () => {
           {[
             // Tabs matching the image
             { name: "Code", icon: FaCode, pathSuffix: "" },
-            {
-              name: "Issues",
-              icon: FaExclamationCircle,
-              count: 0,
-              pathSuffix: "/issues",
-            },
-            {
-              name: "Pull requests",
-              icon: FaCodeBranch,
-              count: 0,
-              pathSuffix: "/pulls",
-            }, // Added Pull Requests
-            { name: "Actions", icon: FaPlayCircle, pathSuffix: "/actions" }, // Added Actions
-            {
-              name: "Projects",
-              icon: FaProjectDiagram,
-              count: 0,
-              pathSuffix: "/projects",
-            },
-            { name: "Wiki", icon: FaBookOpen, pathSuffix: "/wiki" }, // Added Wiki
-            { name: "Security", icon: FaShieldAlt, pathSuffix: "/security" }, // Added Security
-            { name: "Insights", icon: FaChartLine, pathSuffix: "/insights" }, // Added Insights
+            
+            
             { name: "Settings", icon: FaCog, pathSuffix: "/settings" },
           ].map((tab) => (
             <Link

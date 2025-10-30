@@ -82,8 +82,6 @@
   .action-btn:last-child { border-right: none; }
   .action-btn:hover { background-color: #30363d; }
   .action-btn svg { margin-right: 4px; color: #8b949e; font-size: 14px; /* Adjust icon size */}
-  .action-btn .count { /* Style for count bubble if needed later */ }
-
 
   /* Top Navigation Tabs */
   .repo-top-nav {

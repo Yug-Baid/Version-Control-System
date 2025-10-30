@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import "./Signup.css"
 import { useAuth } from "../../AuthContext" 
 import axios from "axios"
+import { Link } from "react-router-dom"
+import './Login.css'
 
 
 const Login = () => {
@@ -9,12 +11,6 @@ const Login = () => {
       const [password,setPassword] = useState('')
       const [loading,setLoading] = useState(false)
       const {setCurrentUser} = useAuth()
-
-      // useEffect(()=>{
-      //   localStorage.removeItem("token")
-      //   localStorage.removeItem("userId")
-      //   setCurrentUser(null)
-      // },[setCurrentUser,loading])
     
       const handleLogin = async (e)=>{
           e.preventDefault()
@@ -57,7 +53,16 @@ const Login = () => {
               <label  style={{alignSelf:"start"}} htmlFor="password">Password</label>
               <input style={{background:"transparent",borderRadius:"5px"}} autoComplete="off" type="password" id="password" name="password"  value={password} onChange={(e)=>setPassword(e.target.value)} />
             </div>
+            <div style={{display:"flex" , alignItems:"center",justifyContent:"space-between"}}>
+              <div>
+                 <p>Dosen't Have a Account ? </p>
+              </div>
+              <div >
+                <Link className="signup-btn"  style={{textDecoration:"none"}} to={'/signup'}>Signup</Link>
+              </div>
+            </div>
             <button className="button" onClick={handleLogin} disabled={loading} >{loading ? "Loading..." : "Login"}</button>
+
           </div>
         </div>
       )
