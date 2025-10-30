@@ -47,7 +47,7 @@ const FileView = () => {
             try {
                 // Fetch user data
                 try {
-                    const userResponse = await axios.get(`http://localhost:3000/getUser/${userId}`);
+                    const userResponse = await axios.get(`3.7.71.159:3000/getUser/${userId}`);
                     setUserName(userResponse.data.name || 'User');
                 } catch (userError) {
                     console.warn("Could not fetch user data:", userError);
@@ -55,7 +55,7 @@ const FileView = () => {
                 }
 
                 // Fetch file content
-                const fileUrl = `http://localhost:3000/repo/file/${userId}/${repoName}/${encodeURIComponent(fileName)}`;
+                const fileUrl = `3.7.71.159:3000/repo/file/${userId}/${repoName}/${encodeURIComponent(fileName)}`;
                 console.log(`Fetching file: ${fileUrl}`);
                 const fileResponse = await axios.get(fileUrl);
                 const data = fileResponse.data;
