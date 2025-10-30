@@ -213,13 +213,6 @@ const RepoSettings = () => {
           {/* Links point back to RepoView but trigger state change */}
           {[
             "Code",
-            "Issues",
-            "Pull requests",
-            "Actions",
-            "Projects",
-            "Wiki",
-            "Security",
-            "Insights",
             "Settings",
           ].map((tabName) => {
             const tabInfo = {
