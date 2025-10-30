@@ -1,9 +1,9 @@
 // src/components/Info/RecentAnnouncements.jsx
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Navbar from '../Navbar'; // Adjust import path if needed
-import { useAuth } from '../../AuthContext'; // To get current user for Navbar username
-import { FaGithub, FaGitAlt, FaInfoCircle, FaBullhorn } from 'react-icons/fa'; // Icons
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Navbar from "../Navbar"; // Adjust import path if needed
+import { useAuth } from "../../AuthContext"; // To get current user for Navbar username
+import { FaGithub, FaGitAlt, FaInfoCircle, FaBullhorn } from "react-icons/fa"; // Icons
 
 // Basic styles (Consider moving to a separate CSS file)
 const announcementStyles = `
@@ -106,148 +106,219 @@ const announcementStyles = `
 `;
 
 const RecentAnnouncements = () => {
-    const { currentUser } = useAuth();
-    const [userName, setUserName] = useState('');
-    const [loading, setLoading] = useState(true);
+  const { currentUser } = useAuth();
+  const [userName, setUserName] = useState("");
+  const [loading, setLoading] = useState(true);
 
-    // Hardcoded announcements
-    const announcements = [ //
-        {
-          title: "New Feature: Repo Insights", //
-          time: "October 25, 2025", //
-          desc: "Now view analytics for all your repositories in one place.", //
-        },
-        {
-          title: "Security Patch Update", //
-          time: "October 24, 2025", //
-          desc: "Improved encryption for repository access tokens and S3 uploads.", //
-        },
-        {
-          title: "UI Update: Dark Mode Default", //
-          time: "October 23, 2025", //
-          desc: "The Dashboard and repository views now support dark mode by default for a better viewing experience.", //
-        },
-         {
-          title: "CLI Enhancements", //
-          time: "October 20, 2025", //
-          desc: "Improved error handling and feedback for 'add', 'commit', and 'push' commands.", //
-        },
-    ];
+  // Hardcoded announcements
+  const announcements = [
+    //
+    {
+      title: "New Feature: Repo Insights", //
+      time: "October 25, 2025", //
+      desc: "Now view analytics for all your repositories in one place.", //
+    },
+    {
+      title: "Security Patch Update", //
+      time: "October 24, 2025", //
+      desc: "Improved encryption for repository access tokens and S3 uploads.", //
+    },
+    {
+      title: "UI Update: Dark Mode Default", //
+      time: "October 23, 2025", //
+      desc: "The Dashboard and repository views now support dark mode by default for a better viewing experience.", //
+    },
+    {
+      title: "CLI Enhancements", //
+      time: "October 20, 2025", //
+      desc: "Improved error handling and feedback for 'add', 'commit', and 'push' commands.", //
+    },
+  ];
 
-    // Fetch username for Navbar
-    useEffect(() => { //
-        if (currentUser) { //
-            setLoading(true); //
-            axios.get(`http://localhost:3000/getUser/${currentUser}`) //
-                .then(res => {
-                    setUserName(res.data?.name || 'User'); //
-                    setLoading(false); //
-                })
-                .catch(err => {
-                    console.error("Failed to fetch user data:", err); //
-                    setUserName('User'); // Fallback //
-                    setLoading(false); //
-                });
-        } else {
-            setLoading(false); // Not logged in //
-             setUserName('Guest'); //
-        }
-    }, [currentUser]); //
+  // Fetch username for Navbar
+  useEffect(() => {
+    //
+    if (currentUser) {
+      //
+      setLoading(true); //
+      axios
+        .get(`3.7.71.159:3000/getUser/${currentUser}`) //
+        .then((res) => {
+          setUserName(res.data?.name || "User"); //
+          setLoading(false); //
+        })
+        .catch((err) => {
+          console.error("Failed to fetch user data:", err); //
+          setUserName("User"); // Fallback //
+          setLoading(false); //
+        });
+    } else {
+      setLoading(false); // Not logged in //
+      setUserName("Guest"); //
+    }
+  }, [currentUser]); //
 
-    // Rigorous check for tag closure:
-    return (
-        // Fragment Start
-        <>
-            {/* Navbar Component */}
-            <Navbar username={loading ? '...' : userName} />
+  // Rigorous check for tag closure:
+  return (
+    // Fragment Start
+    <>
+      {/* Navbar Component */}
+      <Navbar username={loading ? "..." : userName} />
 
-            {/* Style Tag */}
-            <style>{announcementStyles}</style>
+      {/* Style Tag */}
+      <style>{announcementStyles}</style>
 
-            {/* Main Container Div */}
-            <div className="announcements-container">
+      {/* Main Container Div */}
+      <div className="announcements-container">
+        {/* Page Header */}
+        <h2 className="page-header">
+          <FaBullhorn /> Announcements & Info
+        </h2>
 
-                {/* Page Header */}
-                <h2 className="page-header"><FaBullhorn /> Announcements & Info</h2>
-
-                {/* Announcements Section */}
-                <section className="section">
-                    <h3><FaBullhorn /> Recent Updates</h3>
-                    {/* Map through announcements */}
-                    {announcements.map((a, i) => (
-                        <div key={i} className="announcement-item">
-                            <p className="announcement-time">{a.time}</p>
-                            <h4 className="announcement-title">{a.title}</h4>
-                            <p className="announcement-desc">{a.desc}</p>
-                        {/* Closing div for announcement-item */}
-                        </div>
-                    ))}
-                {/* Closing section tag */}
-                </section>
-
-                {/* Git & GitHub Info Section */}
-                <section className="section info-section">
-                    <h3><FaInfoCircle /> About Git & Version Control</h3>
-
-                    <h4><FaGitAlt /> What is Git?</h4>
-                    <p>
-                        Git is a powerful, distributed version control system (DVCS) created by Linus Torvalds in 2005. It's designed to handle everything from small to very large projects with speed and efficiency. Unlike older centralized systems, Git gives every developer a full copy of the repository history, allowing for offline work and robust branching and merging.
-                    {/* Closing p tag */}
-                    </p>
-                    <p>
-                        Key concepts include:
-                        {/* Unordered list */}
-                        <ul>
-                            <li><strong>Repositories (Repos):</strong> A collection of files and the history of their changes.</li>
-                            <li><strong>Commits:</strong> Snapshots of your project at a specific point in time.</li>
-                            <li><strong>Branches:</strong> Independent lines of development allowing you to work on features or fixes without affecting the main codebase (often called <code>main</code> or <code>master</code>).</li>
-                            <li><strong>Merging:</strong> Combining changes from different branches back together.</li>
-                            <li><strong>Working Directory, Staging Area, Repository:</strong> Git tracks files through these three states before they become part of the permanent history.</li>
-                        {/* Closing ul tag */}
-                        </ul>
-                    {/* Closing p tag */}
-                    </p>
-
-                    <h4><FaGithub /> What is GitHub (or a similar platform)?</h4>
-                    <p>
-                        GitHub (and platforms like GitLab, Bitbucket, or this custom one) is a web-based hosting service for Git repositories. It provides a central place to store your code remotely, collaborate with others, and manage projects.
-                    {/* Closing p tag */}
-                    </p>
-                    <p>
-                        While Git is the underlying tool run on your command line, GitHub adds features on top, such as:
-                        {/* Unordered list */}
-                        <ul>
-                            <li>Remote repository hosting (like your S3 storage in this project).</li>
-                            <li>Web interface for browsing code, history, and changes.</li>
-                            <li>Collaboration tools: Pull Requests (for proposing changes), Issues (for tracking tasks/bugs), Project boards.</li>
-                            <li>Access control and user management.</li>
-                            <li>Automation features (like GitHub Actions).</li>
-                        {/* Closing ul tag */}
-                        </ul>
-                    {/* Closing p tag */}
-                    </p>
-                    <h4>How This Project Works (Simplified)</h4>
-                    <p>
-                        This project mimics some core Git concepts:
-                        {/* Unordered list */}
-                        <ul>
-                            <li>The <strong>CLI (<code>node index.js ...</code>)</strong> acts like the <code>git</code> command.</li>
-                            <li><code>node index.js add ...</code> copies files to a local "staging area" (<code>.Git/&lt;user&gt;/&lt;repo&gt;/staged_files</code>).</li>
-                            <li><code>node index.js commit ...</code> moves staged files to a local "committed state" (<code>.Git/&lt;user&gt;/&lt;repo&gt;/commit_files</code>), overwriting the previous commit's files in this simple version.</li>
-                            <li><code>node index.js push ...</code> uploads the files from the local "committed state" to Amazon S3, which acts as the remote "origin" repository.</li>
-                            <li>The <strong>Web UI (Frontend)</strong> reads repository lists from the MongoDB database and file content directly from S3 to display the current state.</li>
-                        {/* Closing ul tag */}
-                        </ul>
-                        This is a simplified model, lacking features like branching, merging, detailed commit history tracking, and diffing that full Git provides.
-                    {/* Closing p tag */}
-                    </p>
-                {/* Closing section tag */}
-                </section>
-            {/* Closing div for announcements-container */}
+        {/* Announcements Section */}
+        <section className="section">
+          <h3>
+            <FaBullhorn /> Recent Updates
+          </h3>
+          {/* Map through announcements */}
+          {announcements.map((a, i) => (
+            <div key={i} className="announcement-item">
+              <p className="announcement-time">{a.time}</p>
+              <h4 className="announcement-title">{a.title}</h4>
+              <p className="announcement-desc">{a.desc}</p>
+              {/* Closing div for announcement-item */}
             </div>
-        {/* Fragment End */}
-        </>
-    );
+          ))}
+          {/* Closing section tag */}
+        </section>
+
+        {/* Git & GitHub Info Section */}
+        <section className="section info-section">
+          <h3>
+            <FaInfoCircle /> About Git & Version Control
+          </h3>
+
+          <h4>
+            <FaGitAlt /> What is Git?
+          </h4>
+          <p>
+            Git is a powerful, distributed version control system (DVCS) created
+            by Linus Torvalds in 2005. It's designed to handle everything from
+            small to very large projects with speed and efficiency. Unlike older
+            centralized systems, Git gives every developer a full copy of the
+            repository history, allowing for offline work and robust branching
+            and merging.
+            {/* Closing p tag */}
+          </p>
+          <p>
+            Key concepts include:
+            {/* Unordered list */}
+            <ul>
+              <li>
+                <strong>Repositories (Repos):</strong> A collection of files and
+                the history of their changes.
+              </li>
+              <li>
+                <strong>Commits:</strong> Snapshots of your project at a
+                specific point in time.
+              </li>
+              <li>
+                <strong>Branches:</strong> Independent lines of development
+                allowing you to work on features or fixes without affecting the
+                main codebase (often called <code>main</code> or{" "}
+                <code>master</code>).
+              </li>
+              <li>
+                <strong>Merging:</strong> Combining changes from different
+                branches back together.
+              </li>
+              <li>
+                <strong>Working Directory, Staging Area, Repository:</strong>{" "}
+                Git tracks files through these three states before they become
+                part of the permanent history.
+              </li>
+              {/* Closing ul tag */}
+            </ul>
+            {/* Closing p tag */}
+          </p>
+
+          <h4>
+            <FaGithub /> What is GitHub (or a similar platform)?
+          </h4>
+          <p>
+            GitHub (and platforms like GitLab, Bitbucket, or this custom one) is
+            a web-based hosting service for Git repositories. It provides a
+            central place to store your code remotely, collaborate with others,
+            and manage projects.
+            {/* Closing p tag */}
+          </p>
+          <p>
+            While Git is the underlying tool run on your command line, GitHub
+            adds features on top, such as:
+            {/* Unordered list */}
+            <ul>
+              <li>
+                Remote repository hosting (like your S3 storage in this
+                project).
+              </li>
+              <li>Web interface for browsing code, history, and changes.</li>
+              <li>
+                Collaboration tools: Pull Requests (for proposing changes),
+                Issues (for tracking tasks/bugs), Project boards.
+              </li>
+              <li>Access control and user management.</li>
+              <li>Automation features (like GitHub Actions).</li>
+              {/* Closing ul tag */}
+            </ul>
+            {/* Closing p tag */}
+          </p>
+          <h4>How This Project Works (Simplified)</h4>
+          <p>
+            This project mimics some core Git concepts:
+            {/* Unordered list */}
+            <ul>
+              <li>
+                The{" "}
+                <strong>
+                  CLI (<code>node index.js ...</code>)
+                </strong>{" "}
+                acts like the <code>git</code> command.
+              </li>
+              <li>
+                <code>node index.js add ...</code> copies files to a local
+                "staging area" (
+                <code>.Git/&lt;user&gt;/&lt;repo&gt;/staged_files</code>).
+              </li>
+              <li>
+                <code>node index.js commit ...</code> moves staged files to a
+                local "committed state" (
+                <code>.Git/&lt;user&gt;/&lt;repo&gt;/commit_files</code>),
+                overwriting the previous commit's files in this simple version.
+              </li>
+              <li>
+                <code>node index.js push ...</code> uploads the files from the
+                local "committed state" to Amazon S3, which acts as the remote
+                "origin" repository.
+              </li>
+              <li>
+                The <strong>Web UI (Frontend)</strong> reads repository lists
+                from the MongoDB database and file content directly from S3 to
+                display the current state.
+              </li>
+              {/* Closing ul tag */}
+            </ul>
+            This is a simplified model, lacking features like branching,
+            merging, detailed commit history tracking, and diffing that full Git
+            provides.
+            {/* Closing p tag */}
+          </p>
+          {/* Closing section tag */}
+        </section>
+        {/* Closing div for announcements-container */}
+      </div>
+      {/* Fragment End */}
+    </>
+  );
 };
 
 export default RecentAnnouncements;

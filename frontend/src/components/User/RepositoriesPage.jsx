@@ -51,11 +51,11 @@ const RepositoriesPage = () => {
       try {
         // Fetch user data in parallel
         const userPromise = axios.get(
-          `http://localhost:3000/getUser/${targetUserId}`
+          `3.7.71.159:3000/getUser/${targetUserId}`
         ); //
         // Fetch repositories for the target user
         const reposPromise = axios.get(
-          `http://localhost:3000/repo/user/${targetUserId}`
+          `3.7.71.159:3000/repo/user/${targetUserId}`
         ); //
 
         const [userRes, reposRes] = await Promise.all([

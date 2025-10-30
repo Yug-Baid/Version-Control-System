@@ -49,7 +49,7 @@ const RepoLandingPage = () => {
         setLoading(true);
         setError('');
         if (userId) {
-            axios.get(`http://localhost:3000/getUser/${userId}`)
+            axios.get(`3.7.71.159:3000/getUser/${userId}`)
                 .then(res => {
                     const name = res.data?.name || userId; // Fallback to ID if name missing
                     setOwnerName(name);
@@ -61,7 +61,7 @@ const RepoLandingPage = () => {
                     setSshUrl(`git@your-domain.com:${name}/${repoName}.git`); // REPLACE your-domain.com
 
                     // Optionally fetch repo details to get visibility
-                     axios.get(`http://localhost:3000/repo/name/${repoName}`) // Need a new backend endpoint for this or adjust existing
+                     axios.get(`3.7.71.159:3000/repo/name/${repoName}`) // Need a new backend endpoint for this or adjust existing
                        .then(repoRes => {
                             setRepoVisibility(repoRes.data.visibility ? 'Public' : 'Private')
                        }).catch(repoErr => console.warn("Could not fetch repo visibility"));
