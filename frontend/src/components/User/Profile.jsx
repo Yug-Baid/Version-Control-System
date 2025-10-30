@@ -36,13 +36,13 @@ const Profile = () => {
       try {
         // Fetch user details
         const userRes = await axios.get(
-          `3.7.71.159:3000/getUser/${targetUserId}`
+          `http://localhost:3000/getUser/${targetUserId}`
         );
         setUserData(userRes.data);
 
         // Fetch repositories for this user
         const repoRes = await axios.get(
-          `3.7.71.159:3000/repo/user/${targetUserId}`
+          `http://localhost:3000/repo/user/${targetUserId}`
         );
         setUserRepos(repoRes.data.repos || []);
       } catch (err) {

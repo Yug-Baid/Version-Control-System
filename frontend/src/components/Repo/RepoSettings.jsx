@@ -68,7 +68,7 @@ const RepoSettings = () => {
       try {
         // Fetch User in parallel
         const userPromise = axios
-          .get(`3.7.71.159:3000/getUser/${userId}`)
+          .get(`http://localhost:3000/getUser/${userId}`)
           .then((res) => setOwnerName(res.data?.name || userId))
           .catch((err) => {
             console.warn("Could not fetch user", err);
@@ -77,7 +77,7 @@ const RepoSettings = () => {
 
         // Fetch Repo Details (using the name route and filtering)
         const repoPromise = axios
-          .get(`3.7.71.159:3000/repo/name/${repoName}`)
+          .get(`http://localhost:3000/repo/name/${repoName}`)
           .then((res) => {
             const foundRepo = res.data.find(
               (r) => r.owner === userId || r.owner?._id === userId
@@ -116,7 +116,7 @@ const RepoSettings = () => {
     if (confirmed) {
       try {
         const repoToggle = await axios.patch(
-          `3.7.71.159:3000/repo/toggle/${repoDetails._id}`
+          `http://localhost:3000/repo/toggle/${repoDetails._id}`
         );
         toast.success("Visibility Changed Successfully"); 
       } catch (error) {
@@ -133,7 +133,7 @@ const RepoSettings = () => {
     if (confirmed) {
       try {
         const repoDelete = await axios.delete(
-          `3.7.71.159:3000/repo/delete/${repoDetails._id}`
+          `http://localhost:3000/repo/delete/${repoDetails._id}`
         );
  
         toast.success("Repo Deleted Successfully"); 

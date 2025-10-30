@@ -142,7 +142,7 @@ const RecentAnnouncements = () => {
       //
       setLoading(true); //
       axios
-        .get(`3.7.71.159:3000/getUser/${currentUser}`) //
+        .get(`http://localhost:3000/getUser/${currentUser}`) //
         .then((res) => {
           setUserName(res.data?.name || "User"); //
           setLoading(false); //

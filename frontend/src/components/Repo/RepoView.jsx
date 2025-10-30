@@ -154,7 +154,7 @@ const RepoView = () => {
       try {
         // --- Fetch User Data (Parallel) ---
         const userPromise = axios
-          .get(`3.7.71.159:3000/getUser/${userId}`)
+          .get(`http://localhost:3000/getUser/${userId}`)
           .then((res) => {
             fetchedOwnerName = res.data?.name || userId;
             setOwnerName(fetchedOwnerName);
@@ -166,7 +166,7 @@ const RepoView = () => {
 
         // --- Fetch Repository Details (Needs Backend Endpoint - Mocking for now) ---
         const repoDetailsPromise = axios
-          .get(`3.7.71.159:3000/repo/name/${repoName}`) // Using existing name route
+          .get(`http://localhost:3000/repo/name/${repoName}`) // Using existing name route
           .then((res) => {
             // Find the repo belonging to the correct user
             const foundRepo = res.data.find(
@@ -186,7 +186,7 @@ const RepoView = () => {
 
         // --- Fetch Files List (Parallel) ---
         const filesPromise = axios.get(
-          `3.7.71.159:3000/repo/content/${userId}/${repoName}`
+          `http://localhost:3000/repo/content/${userId}/${repoName}`
         ); // Use content endpoint
 
         // Wait for all initial fetches
@@ -222,7 +222,7 @@ const RepoView = () => {
         if (readmeFileName) {
           try {
             const readmeRes = await axios.get(
-              `3.7.71.159:3000/repo/file/${userId}/${repoName}/${encodeURIComponent(
+              `http://localhost:3000/repo/file/${userId}/${repoName}/${encodeURIComponent(
                 readmeFileName
               )}`
             );

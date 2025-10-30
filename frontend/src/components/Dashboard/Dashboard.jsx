@@ -36,18 +36,18 @@ const Dashboard = () => {
 
       try {
         // Fetch user's name for Navbar
-        const userRes = await axios.get(`3.7.71.159:3000/getUser/${userId}`);
+        const userRes = await axios.get(`http://localhost:3000/getUser/${userId}`);
         setUserName(userRes.data.name || 'User');
 
         // Fetch repositories owned by the current user
-        const userRepoRes = await axios.get(`3.7.71.159:3000/repo/user/${userId}`);
+        const userRepoRes = await axios.get(`http://localhost:3000/repo/user/${userId}`);
         const fetchedUserRepos = userRepoRes.data.repos || [];
         setUserRepos(fetchedUserRepos);
         setDisplayedRepos(fetchedUserRepos); // Initially display user's repos
 
          // Fetch all repositories (for sidebar/search, optional)
          // You might want to paginate this or fetch only public ones if the list gets large
-        const allRepoRes = await axios.get(`3.7.71.159:3000/repo/all`);
+        const allRepoRes = await axios.get(`http://localhost:3000/repo/all`);
         setAllRepos(allRepoRes.data || []);
 
 
